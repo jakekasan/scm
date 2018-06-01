@@ -30,10 +30,6 @@ def main():
     The core while loop
 
     """
-    # while(True):
-    #     # Do some stuff...
-    #
-    # pass
 
     return
 

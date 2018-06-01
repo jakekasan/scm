@@ -33,5 +33,8 @@ class Service:
             self.network.getRequest(self.reqPoolAddr)
         pass
 
+    def processAction(self):
+        pass
+
     def __str__(self):
         return "Service with Req Addr: {} and Res Addr: {}".format(self.reqPoolAddr,self.resPoolAddr)

@@ -11,9 +11,12 @@ class Pool:
         self.pool = []
 
     def get(self):
-        return None
+        if len(self.pool) < 1:
+            return None
+        return random.choice(self.pool)
 
     def post(self,data):
+        self.pool.append(data)
         return None
 
     def push(self,item):
