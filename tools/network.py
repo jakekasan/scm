@@ -24,17 +24,24 @@ class Network:
             return self.addrs[addr].post(data)
 
     def addrList(self):
-        return [x for x in self.addrs.keys() if x not None]
+        return [x for x in self.addrs.keys()]
+
+    def freeAddrList(self):
+        return [x for x in self.addrs.keys() if self.addrs[x] == None]
+
+    def usedAddrList(self):
+        return [x for x in self.addrs.keys() if self.addrs[x] != None]
 
     def addrListString(self):
-        return str(addrList())
+        return str(self.addrList())
 
     def assignAddr(self,thing):
-        addr = random.choice(addrList())
+        addr = random.choice(self.freeAddrList())
         self.addrs[addr] = thing
         return addr
 
     def __str__(self):
         resultString = []
-        for addr in addrList():
-            resultString.append("{} : {}".format(addr,self.addrs[addr].__str__()))
+        for addr in self.usedAddrList():
+            resultString.append("{} : {}\n".format(addr,self.addrs[addr].__str__()))
+        return "".join(resultString)

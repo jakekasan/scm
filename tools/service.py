@@ -6,9 +6,9 @@ Prototype service class. All services will be based on this class
 
 
 class Service:
-    def __init__(self,network,addr,reqPoolAddr,resPoolAddr):
+    def __init__(self,network,reqPoolAddr,resPoolAddr):
         self.network = network
-        self.addr = self.network.assignAddr()
+        self.addr = self.network.assignAddr(self)
         self.reqPoolAddr = reqPoolAddr
         self.resPoolAddr = resPoolAddr
 

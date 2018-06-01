@@ -19,17 +19,23 @@ from tools.service import Service
 def main():
 
     theNetwork = Network()
-    firstPool = Pool()
+    reqPool = Pool(theNetwork)
+    resPool = Pool(theNetwork)
+    theService = Service(theNetwork,resPool.addr,reqPool.addr)
+
+    print(theNetwork)
 
     """
 
     The core while loop
 
     """
-    while(True):
-        # Do some stuff...
+    # while(True):
+    #     # Do some stuff...
+    #
+    # pass
 
-    pass
+    return
 
 
 if __name__ == '__main__':

@@ -20,4 +20,4 @@ class Pool:
         self.pool.append(item)
 
     def __str__(self):
-        return "Pool with {} items".format(self.pool.length)
+        return "Pool with {} items".format(len(self.pool))
