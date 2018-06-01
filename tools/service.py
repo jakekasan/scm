@@ -8,10 +8,10 @@ Prototype service class. All services will be based on this class
 class Service:
     def __init__(self,network,addr,reqPoolAddr,resPoolAddr):
         self.network = network
-        self.addr = addr
+        self.addr = self.network.assignAddr()
         self.reqPoolAddr = reqPoolAddr
         self.resPoolAddr = resPoolAddr
-        pass
+
 
     def get(self):
         """
@@ -33,3 +33,6 @@ class Service:
         Print update about the service
         """
         pass
+
+    def __str__(self):
+        return "Service with Req Addr: {} and Res Addr: {}".format(self.reqPoolAddr,self.resPoolAddr)

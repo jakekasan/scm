@@ -4,6 +4,8 @@ This class creates a fake network and handles communications between nodes. Its 
 
 """
 
+import random as random
+
 
 class Network:
     def __init__(self):
@@ -20,3 +22,19 @@ class Network:
             return "Request failed : no such address"
         else:
             return self.addrs[addr].post(data)
+
+    def addrList(self):
+        return [x for x in self.addrs.keys() if x not None]
+
+    def addrListString(self):
+        return str(addrList())
+
+    def assignAddr(self,thing):
+        addr = random.choice(addrList())
+        self.addrs[addr] = thing
+        return addr
+
+    def __str__(self):
+        resultString = []
+        for addr in addrList():
+            resultString.append("{} : {}".format(addr,self.addrs[addr].__str__()))

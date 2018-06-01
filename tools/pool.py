@@ -5,10 +5,19 @@ This is the pool class, which will serve as a prototype for all the other pools 
 """
 
 class Pool:
-    def __init__(self,addr):
-        self.addr = addr
+    def __init__(self,network):
+        self.network = network
+        self.addr = network.assignAddr(self)
         self.pool = []
-        pass
+
+    def get(self):
+        return None
+
+    def post(self,data):
+        return None
 
     def push(self,item):
         self.pool.append(item)
+
+    def __str__(self):
+        return "Pool with {} items".format(self.pool.length)
