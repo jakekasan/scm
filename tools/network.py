@@ -7,7 +7,7 @@ This class creates a fake network and handles communications between nodes. Its 
 
 class Network:
     def __init__(self):
-        self.addresses = {x:None for x in range(155)}
+        self.addrs = { x:None for x in range(155) }
 
     def getRequest(self,addr):
         if self.addrs[addr] == None:
