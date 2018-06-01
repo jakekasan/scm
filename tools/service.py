@@ -13,7 +13,6 @@ class Service:
         self.resPoolAddr = resPoolAddr
         self.working = False
 
-
     def get(self):
         """
         GET request handling
