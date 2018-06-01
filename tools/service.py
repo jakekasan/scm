@@ -11,6 +11,7 @@ class Service:
         self.addr = self.network.assignAddr(self)
         self.reqPoolAddr = reqPoolAddr
         self.resPoolAddr = resPoolAddr
+        self.working = False
 
 
     def get(self):
@@ -29,9 +30,8 @@ class Service:
         return self.network.getRequest(self.reqPoolAddr)
 
     def update(self):
-        """
-        Print update about the service
-        """
+        if not self.working:
+            self.network.getRequest(self.reqPoolAddr)
         pass
 
     def __str__(self):
