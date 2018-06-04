@@ -1,7 +1,7 @@
 import hashlib
 
 class Block:
-    def __init__(self):
+    def __init__(self,data,previousHash):
         self.data = data
         self.previousHash = previousHash
         self.nonce = 0
@@ -25,11 +25,20 @@ class Block:
         h.update(data.encode())
         return h.hexdigest()
 
+    def getDate(self):
+        return "January 1st, 2005"
+
 
     def mineBlock(self):
         while self.currentHash[:self.difficulty] != ("".join(["0" for _ in range(self.difficulty)])):
             self.nonce += 1
             self.currentHash = self.hashBlock()
 
-    def returnBlock():
-        pass
+    def returnBlock(self):
+        return {
+            "data":self.data,
+            "previousHash":self.previousHash,
+            "date":self.getDate(),
+            "nonce":self.nonce,
+            "hash":self.currentHash
+        }
