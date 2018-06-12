@@ -31,5 +31,23 @@ class Product:
             print("Error: action not in product blueprint")
         return
 
+    def checkAction(self,action):
+
+
     def update(self):
         pass
+
+class Action:
+    def __init__(self,inputs,type,outputs):
+        self.inputs = inputs
+        self.type = type
+        self.outputs = outputs
+        self.signature = self.signAction(owner)
+
+    def signAction(self,owner):
+        return "signature"
+
+class Input:
+    def __init__(self,owner,id):
+        self.owner = owner
+        self.id = id
