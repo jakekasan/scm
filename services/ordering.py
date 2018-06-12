@@ -32,7 +32,7 @@ class Product:
         return
 
     def checkAction(self,action):
-
+        pass
 
     def update(self):
         pass
