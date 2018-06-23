@@ -1,11 +1,15 @@
 import hashlib
 
 class Block:
-    def __init__(self,data,previousHash):
+    def __init__(self,data,previousHash,currentHash=None,nonce=None):
         self.data = data
         self.previousHash = previousHash
-        self.nonce = 0
-        self.currentHash = self.hashBlock()
+        if currentHash == None || nonce == None:    
+            self.nonce = 0
+            self.currentHash = self.hashBlock()
+        else:
+            self.nonce = nonce
+            self.currentHash
         pass
 
     def hashBlock(self):
