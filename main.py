@@ -16,14 +16,22 @@ from tools.pool import Pool
 from tools.service import Service
 
 
+class Transaction:
+    def __init__(self,data):
+        pass
+
+    def sign(self,private_key):
+        pass
+
+
 def main():
 
-    theNetwork = Network()
-    reqPool = Pool(theNetwork)
-    resPool = Pool(theNetwork)
-    theService = Service(theNetwork,resPool.addr,reqPool.addr)
+    # theNetwork = Network()
+    # reqPool = Pool(theNetwork)
+    # resPool = Pool(theNetwork)
+    # theService = Service(theNetwork,resPool.addr,reqPool.addr)
 
-    print(theNetwork)
+    # print(theNetwork)
 
     """
 
