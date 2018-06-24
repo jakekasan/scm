@@ -32,6 +32,8 @@ class Block:
     def getDate(self):
         return "January 1st, 2005"
 
+    def __str__(self):
+        return "blockHash: {}\nnonce: {}\nprevHash: {}\ndata: {}".format(self.currentHash,self.nonce,self.previousHash,self.data)
 
     def mineBlock(self):
         while self.currentHash[:self.difficulty] != ("".join(["0" for _ in range(self.difficulty)])):

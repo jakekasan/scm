@@ -15,6 +15,8 @@ from tools.network import Network
 from tools.pool import Pool
 from tools.service import Service
 
+import json
+
 
 class Transaction:
     def __init__(self,data):
@@ -23,21 +25,93 @@ class Transaction:
     def sign(self,private_key):
         pass
 
+# sampleTransaction = {
+#     "orderRef":1,
+#     "inputs":[
+#         {
+#             "inputRef":12345,
+#             ""
+#         }
+#     ]
+# }
+
+# define actors
+
+genesisData = [
+    {
+        "type":"AUTH",
+        "data":{
+            "key":"keyOfOrderActor",
+            "auth":False
+        },
+        "byWhom":"keyOfAuthorisor",
+        "signature":"signatureOfAuthorisor"
+    },
+    {
+        "type":"AUTH",
+        "data":{
+            "key":"keyOfWarehouseActor",
+            "auth":False
+        },
+        "byWhom":"keyOfAuthorisor",
+        "signature":"signatureOfAuthorisor"
+    },
+    {
+        "type":"AUTH",
+        "data":{
+            "key":"keyOfShippingActor",
+            "auth":False
+        },
+        "byWhom":"keyOfAuthorisor",
+        "signature":"signatureOfAuthorisor"
+    },
+    {
+        "type":"ACTION",
+        "subType":"createdProduct"
+    },
+    {
+        "type":"ACTION",
+        "subType":"locationAtShipping"
+    },
+    {
+        "type":"ACTION",
+        "subType":"confirmationOfShipping"
+    },
+    {
+        "type":"MODEL",
+        "data":{
+            "name":"finishedProduct",
+            "inputs":[
+                {
+                    "type":"ACTION",
+                    "subType":"createdProduct"
+                },
+                {
+                    "type":"ACTION",
+                    "subType":"locationAtShipping"
+                },
+                {
+                    "type":"ACTION",
+                    "subType":"confirmationOfShipping"
+                }
+            ]
+        }
+    }
+]
+
+
+
 
 def main():
 
-    # theNetwork = Network()
-    # reqPool = Pool(theNetwork)
-    # resPool = Pool(theNetwork)
-    # theService = Service(theNetwork,resPool.addr,reqPool.addr)
+    print("\nString of dict:\n")
+    print(str(genesisData))
 
-    # print(theNetwork)
+    print("\nJson loads on string:\n")
+    print(json.loads(json.dumps(genesisData))[0]["type"])
 
-    """
-
-    The core while loop
-
-    """
+    print("\nJson dumps of dict:\n")
+    print(json.dumps(genesisData))
 
     return
 
