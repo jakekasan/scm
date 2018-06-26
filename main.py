@@ -44,7 +44,7 @@ genesisData = [
         "type":"AUTH",
         "data":{
             "key":"keyOfOrderActor",
-            "auth":False
+            "auth":True
         },
         "byWhom":"keyOfAuthorisor",
         "signature":"signatureOfAuthorisor"
@@ -53,7 +53,7 @@ genesisData = [
         "type":"AUTH",
         "data":{
             "key":"keyOfWarehouseActor",
-            "auth":False
+            "auth":True
         },
         "byWhom":"keyOfAuthorisor",
         "signature":"signatureOfAuthorisor"
@@ -62,7 +62,7 @@ genesisData = [
         "type":"AUTH",
         "data":{
             "key":"keyOfShippingActor",
-            "auth":False
+            "auth":True
         },
         "byWhom":"keyOfAuthorisor",
         "signature":"signatureOfAuthorisor"
@@ -103,8 +103,6 @@ genesisData = [
 
 
 
-
-
 def main():
 
     # print("\nString of dict:\n")
@@ -121,6 +119,9 @@ def main():
     blockchain.addBlock(newBlock)
 
     print(blockchain)
+
+    print("Actors: ")
+    print(blockchain.buildActors())
 
     return
 

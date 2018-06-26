@@ -1,3 +1,5 @@
+import json
+
 class BlockChain:
     def __init__(self,difficulty=1,genesisBlock=None,blockchain=None):
         self.blocks = []
@@ -16,9 +18,11 @@ class BlockChain:
     def buildActors(self):
         actors = []
         for block in self.blocks:
-            for transaction in block.data:
-                
-        pass
+            for transaction in json.loads(block.data):
+                if transaction["type"] == "AUTH":
+                    if transaction["data"]["auth"] == True:
+                        actors.append(transaction["data"]["key"])
+        return actors
 
     def buildOrders(self):
         orders = []
