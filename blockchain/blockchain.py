@@ -35,9 +35,6 @@ class BlockChain:
         pass
 
     def buildMasters(self):
-        """
-        set masters from genesis block
-        """
         pass
 
     def __str__(self):

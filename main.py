@@ -27,18 +27,6 @@ class Transaction:
     def sign(self,private_key):
         pass
 
-# sampleTransaction = {
-#     "orderRef":1,
-#     "inputs":[
-#         {
-#             "inputRef":12345,
-#             ""
-#         }
-#     ]
-# }
-
-# define actors
-
 genesisData = [
     {
         "type":"AUTH",
@@ -98,21 +86,17 @@ genesisData = [
                 }
             ]
         }
+    },
+    {
+        ""
     }
 ]
 
 
 
+
 def main():
 
-    # print("\nString of dict:\n")
-    # print(str(genesisData))
-
-    # print("\nJson loads on string:\n")
-    # print(json.loads(json.dumps(genesisData))[0]["type"])
-
-    # print("\nJson dumps of dict:\n")
-    # print(json.dumps(genesisData))
 
     newBlock = Block(json.dumps(genesisData),"",difficulty=1)
     blockchain = BlockChain(1)
