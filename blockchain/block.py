@@ -1,4 +1,6 @@
 import hashlib
+from datetime import datetime
+import json
 
 class Block:
     def __init__(self,data,previousHash,currentHash=None,nonce=None,difficulty=1):
@@ -31,10 +33,13 @@ class Block:
         return h.hexdigest()
 
     def getDate(self):
-        return "January 1st, 2005"
+        return str(datetime.now())
+
+    def printTransactions(self):
+        return "\n".join(["{}\n".format(x) for x in json.loads(self.data)])
 
     def __str__(self):
-        return "blockHash: {}\nnonce: {}\nprevHash: {}\ndata: {}".format(self.currentHash,self.nonce,self.previousHash,self.data)
+        return "blockHash: {}\nnonce: {}\nprevHash: {}\ndata: \n{}".format(self.currentHash,self.nonce,self.previousHash,self.printTransactions())
 
     def mineBlock(self):
         blockhash = self.hashBlock()

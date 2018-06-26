@@ -18,21 +18,20 @@ from blockchain.block import Block
 from blockchain.blockchain import BlockChain
 
 import json
+import random
+import hashlib
+from datetime import datetime
 
-
-class Transaction:
-    def __init__(self,data):
-        pass
-
-    def sign(self,private_key):
-        pass
 
 genesisData = [
     {
         "type":"AUTH",
         "data":{
             "key":"keyOfOrderActor",
-            "auth":True
+            "auth":True,
+            "ACTIONs":[
+                "createdOrder"
+            ]
         },
         "byWhom":"keyOfAuthorisor",
         "signature":"signatureOfAuthorisor"
@@ -41,7 +40,11 @@ genesisData = [
         "type":"AUTH",
         "data":{
             "key":"keyOfWarehouseActor",
-            "auth":True
+            "auth":True,
+            "ACTIONs":[
+                "createdProduct",
+                "locationAtShipping"
+            ]
         },
         "byWhom":"keyOfAuthorisor",
         "signature":"signatureOfAuthorisor"
@@ -50,14 +53,17 @@ genesisData = [
         "type":"AUTH",
         "data":{
             "key":"keyOfShippingActor",
-            "auth":True
+            "auth":True,
+            "ACTIONs":[
+                "confirmationOfShipping"
+            ]
         },
         "byWhom":"keyOfAuthorisor",
         "signature":"signatureOfAuthorisor"
     },
     {
         "type":"ACTION",
-        "subType":"createdProduct"
+        "subType":"createdProduct",
     },
     {
         "type":"ACTION",
@@ -66,6 +72,10 @@ genesisData = [
     {
         "type":"ACTION",
         "subType":"confirmationOfShipping"
+    },
+    {
+        "type":"ACTION",
+        "subType":"newOrder"
     },
     {
         "type":"MODEL",
@@ -86,29 +96,96 @@ genesisData = [
                 }
             ]
         }
-    },
-    {
-        ""
     }
 ]
 
 
+def generateOrders(num):
+    orders = []
+    for i in range(num):
+        newOrder = {
+            "type":"REQUEST",
+            "orderID":i,
+            "items":[
+                "finishedProduct",
+                "finishedProduct"
+            ]
+        }
+        orders.append(newOrder)
+    return orders
 
 
 def main():
-
-
+    # genesis block
     newBlock = Block(json.dumps(genesisData),"",difficulty=1)
     blockchain = BlockChain(1)
     blockchain.addBlock(newBlock)
 
     print(blockchain)
 
+
+    #known actors
     print("Actors: ")
     print(blockchain.buildActors())
 
+    # let's 'make' a few products to have in storage
+
+    newProducts = []
+    for i in range(20):
+        productObject = {
+            "type":"OBJECT",
+            "id":(100+i),
+            "name":"finishedProduct",
+            "inputs":[
+                {
+                    "number":0,
+                    "type":"ACTION",
+                    "subType":"createdProduct",
+                    "byWhom":"keyOfWareHouseActor",
+                    "date":str(datetime.now()),
+                    "signature":signThis({
+                        "type":"ACTION",
+                        "subType":"createdProduct",
+                        "byWhom":"keyOfWareHouseActor",
+                        "date":str(datetime.now())
+                    },"keyOfWarehouseActor")
+                }
+            ]
+        }
+        newProducts.append(productObject)
+
+    productsBlock = Block(json.dumps(newProducts),blockchain.getLastHash())
+    blockchain.addBlock(productsBlock)
+
+    # now a few orders will be submitted
+
+    orders = generateOrders(10)
+
+    print("\n")
+    print(blockchain)
+
+    ordersBlock = Block(json.dumps(orders),blockchain.getLastHash())
+    blockchain.addBlock(ordersBlock)
+
+    print(blockchain)
+
+    print("\n\nNow getting orders...")
+
+    printList(blockchain.buildOrders())
+
+    
+
+
     return
 
+def printList(arr):
+    for x in arr:
+        print(x)
+
+def signThis(obj,privateKey):
+    h = hashlib.new("sha256")
+    h.update((json.dumps(obj)).encode())
+    return h.hexdigest()
 
 if __name__ == '__main__':
     main()

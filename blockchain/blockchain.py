@@ -27,12 +27,18 @@ class BlockChain:
     def buildOrders(self):
         orders = []
         for block in self.blocks:
-            for transaction in block.data:
-                orders.append("blah")
+            for transaction in json.loads(block.data):
+                if transaction["type"] == "REQUEST":
+                    orders.append(transaction)
         """
         get list of orders (both outstanding and fullfilled)
         """
-        pass
+        return orders
+
+    def getLastHash(self):
+        if len(self.blocks) < 1:
+            return ""
+        return self.blocks[-1].currentHash
 
     def buildMasters(self):
         pass
