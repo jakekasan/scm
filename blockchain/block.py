@@ -1,15 +1,16 @@
 import hashlib
 
 class Block:
-    def __init__(self,data,previousHash,currentHash=None,nonce=None):
+    def __init__(self,data,previousHash,currentHash=None,nonce=None,difficulty=1):
         self.data = data
         self.previousHash = previousHash
-        if currentHash == None || nonce == None:    
+        self.difficulty = difficulty
+        if (currentHash is None) | (nonce is None):
             self.nonce = 0
-            self.currentHash = self.hashBlock()
+            self.currentHash = self.mineBlock()
         else:
             self.nonce = nonce
-            self.currentHash
+            self.currentHash = currentHash
         pass
 
     def hashBlock(self):
@@ -36,9 +37,13 @@ class Block:
         return "blockHash: {}\nnonce: {}\nprevHash: {}\ndata: {}".format(self.currentHash,self.nonce,self.previousHash,self.data)
 
     def mineBlock(self):
-        while self.currentHash[:self.difficulty] != ("".join(["0" for _ in range(self.difficulty)])):
+        blockhash = self.hashBlock()
+        while blockhash[:self.difficulty] != ("".join(["0" for _ in range(self.difficulty)])):
+            #print("{} : {}".format(blockhash[:self.difficulty],("".join(["0" for _ in range(self.difficulty)]))))
             self.nonce += 1
-            self.currentHash = self.hashBlock()
+            blockhash = self.hashBlock()
+        return blockhash
+        
 
     def returnBlock(self):
         return {

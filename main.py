@@ -14,6 +14,8 @@ Imports:
 from tools.network import Network
 from tools.pool import Pool
 from tools.service import Service
+from blockchain.block import Block
+from blockchain.blockchain import BlockChain
 
 import json
 
@@ -105,14 +107,20 @@ genesisData = [
 
 def main():
 
-    print("\nString of dict:\n")
-    print(str(genesisData))
+    # print("\nString of dict:\n")
+    # print(str(genesisData))
 
-    print("\nJson loads on string:\n")
-    print(json.loads(json.dumps(genesisData))[0]["type"])
+    # print("\nJson loads on string:\n")
+    # print(json.loads(json.dumps(genesisData))[0]["type"])
 
-    print("\nJson dumps of dict:\n")
-    print(json.dumps(genesisData))
+    # print("\nJson dumps of dict:\n")
+    # print(json.dumps(genesisData))
+
+    newBlock = Block(json.dumps(genesisData),"",difficulty=1)
+    blockchain = BlockChain(1)
+    blockchain.addBlock(newBlock)
+
+    print(blockchain)
 
     return
 

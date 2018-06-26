@@ -1,6 +1,10 @@
 class BlockChain:
-    def __init__(self,genesisBlock=None,blockchain=None):
+    def __init__(self,difficulty=1,genesisBlock=None,blockchain=None):
         self.blocks = []
+        self.difficulty = difficulty
+
+    def addBlock(self,block):
+        self.blocks.append(block)
         
     
     def validateBlocks(self):
@@ -10,12 +14,17 @@ class BlockChain:
         pass
 
     def buildActors(self):
-        """
-        get a list of authorised actors from blocks
-        """
+        actors = []
+        for block in self.blocks:
+            for transaction in block.data:
+                
         pass
 
     def buildOrders(self):
+        orders = []
+        for block in self.blocks:
+            for transaction in block.data:
+                orders.append("blah")
         """
         get list of orders (both outstanding and fullfilled)
         """
@@ -26,5 +35,8 @@ class BlockChain:
         set masters from genesis block
         """
         pass
+
+    def __str__(self):
+        return "".join(["{}\n".format(x.__str__()) for x in self.blocks])
 
     

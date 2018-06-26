@@ -2,7 +2,7 @@ from block import Block
 
 
 def main():
-    newBlock = Block("hello world","")
+    newBlock = Block("","")
     print(newBlock.returnBlock())
 
 
