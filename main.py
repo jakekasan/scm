@@ -146,7 +146,7 @@ def main():
                     "signature":signThis({
                         "type":"ACTION",
                         "subType":"createdProduct",
-                        "byWhom":"keyOfWareHouseActor",
+                        "byWhom":"keyOfWarehouseActor",
                         "date":str(datetime.now())
                     },"keyOfWarehouseActor")
                 }
@@ -159,7 +159,7 @@ def main():
 
     # now a few orders will be submitted
 
-    orders = generateOrders(10)
+    orders = generateOrders(5)
 
     print("\n")
     print(blockchain)
@@ -173,10 +173,37 @@ def main():
 
     printList(blockchain.buildOrders())
 
+    # now add the shipping action to a few of the orders
+
+    shipping = []
+    for _ in range(5):
+        temp_action = {
+            "type":"ACTION",
+            "subType":"locationAtShipping",
+            "itemID":getAnOrder(blockchain)[""],
+            "byWhom":"keyOfWarehouseActor",
+            "date":str(datetime.now()),
+            "signature":signThis({
+                "type":"ACTION",
+                "subType":"locationAtShipping",
+                "itemID":getAnOrder(blockchain),
+                "byWhom":"keyOfWarehouseActor",
+                "date":str(datetime.now())
+            })
+        }
+        shipping.append(temp_action)
     
+    shippingBlock = Block(json.dumps(temp_action),blockchain.getLastHash())
 
+    blockchain.addBlock(shippingBlock)
 
+    print(blockchain)
+        
     return
+
+def getAnOrder(blockchain):
+    orders = blockchain.buildOrders()
+    return orders[0]
 
 def printList(arr):
     for x in arr:
